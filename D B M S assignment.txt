@@ -1,0 +1,418 @@
+Question 1.  What do you understand By Database
+
+Answer 1.ChatGPT said:
+
+A database is an organized collection of data that can be stored, managed, and retrieved easily.
+
+> Your phone contacts → stored in a database
+
+> Student information in a school (roll no, name, marks) → stored in a database
+
+> Bank account details → stored in a database
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Question 2.What is Normalization?
+
+Answer 2.Normalization is the process of arranging data into tables so that data is not repeated and the database becomes efficient.
+
+> To remove duplicate data (redundancy)
+
+> To make data consistent
+
+> To improve data storage efficiency
+
+> To make updating, inserting, and deleting easy
+
+> To avoid anomalies (problems)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Question 3. What is Difference between DBMS and RDBMS?
+
+Answer 3.
+       > DBMS (Database Management System): A software used to store and manage data, but it does not require relational tables.
+Stores data in files or non-relational form No relationship between data Does not support normalization	Suitable for small amount of data	
+Example: File system, XML database, dBase
+
+	>RDBMS (Relational Database Management System): A type of DBMS that stores data in relational (table) format and uses keys to maintain relationships.
+
+Stores data in tables (rows & columns)Tables are related using keys (Primary Key, Foreign Key)Supports normalization Suitable for large databases
+Example: MySQL, Oracle, SQL Server, PostgreSQL
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 4. What is MF Cod Rule of RDBMS Systems?
+Answer 4. there are total 13 rules....
+
+> Rule 1 – Information Rule
+All data must be stored in tables (rows & columns).
+
+> Rule 2 – Guaranteed Access Rule
+Each value can be accessed using table name, column name, and primary key.
+
+> Rule 3 – Systematic Null Handling
+NULL values must be handled properly (unknown / missing).
+
+> Rule 4 – Dynamic Online Catalog
+Database dictionary should also be stored as tables.
+
+> Rule 5 – Comprehensive Data Sublanguage Rule
+The system must support at least one powerful language (like SQL).
+
+> Rule 6 – View Updating Rule
+Views should be updatable whenever possible.
+
+> Rule 7 – High-Level Insert, Update, Delete
+SQL must support operations on sets of records, not only one row at a time.
+
+> Rule 8 – Physical Data Independence
+Changes in storage (files, hardware) should not affect data.
+
+> Rule 9 – Logical Data Independence
+Changes in table structure should not affect applications.
+
+> Rule 10 – Integrity Independence
+Integrity rules (PK, FK, constraints) should be stored separately and managed by the database.
+
+> Rule 11 – Distribution Independence
+Data can be distributed across multiple locations without affecting users.
+
+> Rule 12 – Non-subversion Rule
+If low-level access exists, it must not bypass security or constraint
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 5. What do you understand By Data Redundancy?
+
+Answer 5. Data Redundancy is the unnecessary repetition of the same data at multiple places in a database.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 6.What is DDL Interpreter?
+Answer 6. DDL Interpreter is the part of a DBMS that reads and executes DDL (Data Definition Language) commands like CREATE, ALTER, DROP, and modifies the database
+ structure.
+
+> DDL commands (CREATE, ALTER, DROP, TRUNCATE).
+> Checks syntax of the command.
+> Changes the database schema (tables, indexes, constraints).
+> Updates the data dictionary (metadata stored by the DBMS).
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 7.What is DML Compiler in SQL?
+Answer 7.DML Compiler translates DML commands like INSERT, UPDATE, DELETE, and SELECT into machine-level instructions so that the database can access and modify the
+ data.	
+
+> Reads DML commands
+SELECT
+INSERT
+UPDATE
+DELETE
+
+> Checks for errors
+Syntax checking
+Checking if columns/tables exist
+
+>Optimizes the query
+Decides the best way to access data (using indexes, paths)
+
+> Generates execution plan
+Converts the query into low-level operations
+Sends it to the Query Execution Engine
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 8.What is SQL Key Constraints writing an Example of SQL Key Constraints.
+Answer 8. SQL Key Constraints are rules applied on table columns to uniquely identify records, maintain data accuracy, and ensure data integrity in a database.
+
+ PRIMARY KEY Constraint
+>Uniquely identifies each record in a table
+>Cannot be NULL
+>Only one primary key per table
+
+ FOREIGN KEY Constraint
+>Creates a relationship between two tables
+>Refers to the Primary Key of another table
+
+ UNIQUE Constraint
+>Ensures all values in a column are different
+>Allows only one NULL value
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 9.What is save Point? How to create a save Point write a Query?10.What is trigger and how to create a Trigger in SQL?
+Answer 9. A Savepoint is a point inside a transaction where you can pause or mark the current state of the database so that you can roll back only part of the 
+transaction instead of the whole transaction.
+
+ START TRANSACTION;
+ INSERT INTO student VALUES (101, 'Amit', 85);
+ SAVEPOINT sp1;
+ INSERT INTO student VALUES (102, 'Rahul', 90);
+ ROLLBACK TO sp1;   -- This will undo second INSERT only
+ COMMIT;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Question 10. What is trigger and how to create a Trigger in SQL?
+Answer 10. A Trigger is a stored program in SQL that runs automatically when a specific operation (INSERT, UPDATE, DELETE) happens on a table. 
+
+ Types of Triggers
+
+ > BEFORE Trigger
+ > AFTER Trigger
+
+CREATE TABLE student_log (
+    id INT,
+    action VARCHAR(20),
+    log_time TIMESTAMP
+);
+
+trigger creation
+
+CREATE TRIGGER after_student_insert
+AFTER INSERT ON student
+FOR EACH ROW
+INSERT INTO student_log (id, action, log_time)
+VALUES (NEW.rollno, 'INSERT', NOW());
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                    :SQUL QUERRIES:
+
+
+Questio 1.Create Table Name : Student and Exam
+
+Answer 1.
+CREATE TABLE Student (
+    rollno INT PRIMARY KEY,
+    name VARCHAR(50),
+    class VARCHAR(20),
+    city VARCHAR(50)
+);
+CREATE TABLE Exam (
+    exam_id INT PRIMARY KEY,
+    rollno INT,
+    subject VARCHAR(50),
+    marks INT,
+    FOREIGN KEY (rollno) REFERENCES Student(rollno)
+);
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Question 2.Create table given below: Employee and IncentiveTable
+Answer 2.
+CREATE TABLE Employee (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    job VARCHAR(50),
+    salary INT,
+    department VARCHAR(50)
+);
+
+CREATE TABLE IncentiveTable (
+    incentive_id INT PRIMARY KEY,
+    emp_id INT,
+    incentive_amount INT,
+    incentive_date DATE,
+    FOREIGN KEY (emp_id) REFERENCES Employee(emp_id)
+);
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Question 3.Get First_Name from employee table using Tom name “Employee Name”.
+Answer 3. 
+
+SELECT first_name
+FROM employee
+WHERE employee_name = 'Tom';
+
+
+SELECT first_name
+FROM employee
+WHERE `Employee Name` = 'Tom';
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 4. Get FIRST_NAME, Joining Date, and Salary from employee table.
+ Answer 4.
+
+SELECT FIRST_NAME, JOINING_DATE, SALARY
+FROM employee;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 5. Get all employee details from the employee table order by First_Name ascending and Salary descending?
+Answer 5. 
+
+SELECT *FROM employee
+ORDER BY first_name ASC, salary DESC;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Question 6.  Get employee details from employee table whose first name contains ‘J’.
+Answer 6.
+
+SELECT * FROM employee
+WHERE first_name LIKE '%J%';
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 7.Get department wise maximum salary from employee table order by
+Answer 7.
+
+SELECT department, MAX(salary) AS max_salary
+FROM employee
+GROUP BY department
+ORDER BY department ASC;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 8. salaryascending?
+Answer 8. 
+
+SELECT department, MAX(salary) AS max_salary
+FROM employee
+GROUP BY department
+ORDER BY max_salary ASC;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Qestion 9. Select first_name, incentive amount from employee and incentives table forthose employees who have incentives and incentive amount greater than3000
+Answer 9. 
+
+SELECT e.first_name, i.incentive_amount
+FROM employee e
+JOIN incentives i ON e.employee_id = i.employee_id
+WHERE i.incentive_amount > 3000;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 10. Create After Insert trigger on Employee table which insert records inviewtable
+Answer 10. 
+
+DELIMITER $$
+
+CREATE TRIGGER after_employee_insert
+AFTER INSERT ON Employee
+FOR EACH ROW
+BEGIN
+
+    INSERT INTO viewtable (employee_id, first_name, last_name, salary, department)
+    VALUES (NEW.employee_id, NEW.first_name, NEW.last_name, NEW.salary, NEW.department);
+END$$
+
+DELIMITER ;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 11.Create table given below: Salesperson and Customer
+Answer 11.
+
+CREATE TABLE Salesperson (
+    salesperson_id INT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    phone VARCHAR(15),
+    email VARCHAR(50),
+    hire_date DATE,
+    salary DECIMAL(10,2)
+);
+
+CREATE TABLE Customer (
+    customer_id INT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    phone VARCHAR(15),
+    email VARCHAR(50),
+    city VARCHAR(50),
+    salesperson_id INT,
+    FOREIGN KEY (salesperson_id) REFERENCES Salesperson(salesperson_id)
+);
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Question 12.All orders for more than $1000.
+Answer 12.
+
+SELECT *
+FROM Orders
+WHERE OrderAmount > 1000;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 13.Names and cities of all salespeople in London with commission above 0.12
+Answer 13.
+
+SELECT Name, City
+FROM Salesperson
+WHERE City = 'London'
+  AND Commission > 0.12;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 14.All salespeople either in Barcelona or in London
+Answer 14.
+
+SELECT *
+FROM Salesperson
+WHERE City = 'Barcelona' 
+   OR City = 'London';
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Question 15.All salespeople with commission between 0.10 and 0.12. (Boundar yvaluesshould be excluded)
+Answer 15.
+
+SELECT Name, Commission
+FROM Salesperson
+WHERE Commission > 0.10 
+  AND Commission < 0.12;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 16.All customers excluding those with rating <= 100 unless they are locatedinRome
+Answer 16.
+
+SELECT Name, City, Rating
+FROM Customer
+WHERE Rating > 100
+   OR City = 'Rome';
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 17.Write a SQL statement that displays all the information about allsalespeople
+Answer 17.
+
+SELECT *
+FROM Salesperson;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 18.From the following table, write a SQL query to find orders that aredelivered by a salesperson with ID. 5001. Return ord_no, ord_date, purch_amt.
+
+Answer 18.
+
+SELECT ord_no, ord_date, purch_amt
+FROM Orders
+WHERE salesperson_id = 5001;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 19.From the following table, write a SQL query to select a range of products whose price is in the range Rs.200 to  Rs.600. Begin and end values are included. Return pro_id,
+pro_name, pro_price, and pro_com.
+
+Answer 19.
+
+SELECT pro_id, pro_name, pro_price, pro_com
+FROM Product
+WHERE pro_price BETWEEN 200 AND 600;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 20.From the following table, write a SQL query to calculate the averageprice for a manufacturer code of 16. Return avg
+
+Answer 20.
+
+SELECT AVG(pro_price) AS avg
+FROM products
+WHERE manu_code = 16;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 21.From the following table, write a SQL query to display the pro_nameas 'Item Name' and pro_priceas 'Price in Rs
+
+Answer 21.
+
+SELECT pro_name AS 'Item Name',
+       pro_price AS 'Price in Rs'
+FROM products;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 22.From the following table, write a SQL query to find the items whose prices are higher than or equal to $250. Order the result by product price indescending, 
+then product name in ascending. Return pro_name and pro_price.
+
+Answer 22.
+
+SELECT pro_name, pro_price
+FROM your_table_name
+WHERE pro_price >= 250
+ORDER BY pro_price DESC, pro_name ASC;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 23. From the following table, write a SQL query to calculate average price of the items for each company. Return average price and companycode.
+
+Answer 23.
+
+SELECT companycode, AVG(pro_price) AS average_price
+FROM your_table_name
+GROUP BY companycode;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
